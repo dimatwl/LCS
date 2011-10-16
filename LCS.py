@@ -20,9 +20,32 @@ def getLCSTable(inpFirstString, inpSecondString):
                 c[i][j] = c[i-1][j]
             else:
                 c[i][j] = c[i][j-1]
-    for line in table:
-        print line
-    
+    return c
+
+
+def getLCSFromTable(inpLCSTable, inpFirstString, inpSecondString):
+    c = inpLCSTable
+    X = inpFirstString
+    Y = inpSecondString
+    i = len(X)
+    j = len(Y)
+    LCS = u''
+    while i != 0 and j != 0:
+        if X[i-1] == Y[j-1]:
+            LCS = LCS + X[i-1]
+            i -= 1
+            j -= 1
+        elif c[i][j-1] > c[i-1][j]:
+            j -= 1
+        else:
+            i -= 1
+    return LCS[::-1]
+
+
+def getLCS(inpFirstString, inpSecondString):
+    LCSTable = getLCSTable(inpFirstString,inpFirstString)
+    LCS = getLCSFromTable(LCSTable,inpFirstString,inpSecondString)
+    return LCS
 
 
 def main(inpargv):
@@ -31,8 +54,7 @@ def main(inpargv):
     for line in f:
         line = line.replace('\n','')
         lines.append(line)
-    #getLCSTable(lines[0], lines[1])
-    getLCSTable(u'ABCBDAB', u'BDCABA')
+    print getLCS(lines[0],lines[1])
 
 
 if __name__ == "__main__":
