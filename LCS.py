@@ -53,6 +53,7 @@ def main(inpargv):
     lines = []
     for line in f:
         line = line.replace('\n','')
+        line = line.lower()
         lines.append(line)
     print getLCS(lines[0],lines[1])
 
