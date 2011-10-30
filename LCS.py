@@ -22,6 +22,24 @@ def getLCSTable(inpFirstString, inpSecondString):
                 c[i][j] = c[i][j-1]
     return c
 
+def getSTRTable(inpFirstString, inpSecondString):
+    X = inpFirstString
+    Y = inpSecondString
+    m = len(X)
+    n = len(Y)
+    table = [[0] for i in range(m+1)]
+    for line in table:
+        for char in Y:
+            line.append(0)
+    c = table
+    for i in range(1,m+1):
+        for j in range(1,n+1):
+            if X[i-1] == Y[j-1]:
+                c[i][j] = c[i-1][j-1] + 1
+            else:
+                c[i][j] = 0 
+    return c
+
 
 def getLCSFromTable(inpLCSTable, inpFirstString, inpSecondString):
     c = inpLCSTable
@@ -55,7 +73,8 @@ def main(inpargv):
         line = line.replace('\n','')
         line = line.lower()
         lines.append(line)
-    print getLCS(lines[0],lines[1])
+    for line in getSTRTable(lines[0],lines[1]):
+        print line
 
 
 if __name__ == "__main__":
